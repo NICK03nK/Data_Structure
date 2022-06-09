@@ -1,0 +1,5 @@
+﻿  SeqList.c
+D:\VS 2022\code\SeqList\SeqList\SeqList.c(126,23): warning C4090: “函数”: 不同的“const”限定符
+  test.c
+  正在生成代码...
+  SeqList.vcxproj -> D:\VS 2022\code\SeqList\x64\Debug\SeqList.exe
