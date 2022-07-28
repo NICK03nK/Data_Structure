@@ -21,8 +21,16 @@ void PrintSeqList(const SL* ps);
 
 void DestroySeqList(SL* ps);
 
-void PushFront(SL* ps, SLDataType x);
+void SLPushFront(SL* ps, SLDataType x);
 
-void PushBack(SL* ps, SLDataType x);
+void SLPopFront(SL* ps);
 
-void PopBack(SL* ps);
+void SLPushBack(SL* ps, SLDataType x);
+
+void SLPopBack(SL* ps);
+
+int SLFind(const SL* ps, SLDataType x);
+
+void SLInsert(SL* ps, size_t pos, SLDataType x);
+
+void SLErase(SL* ps, size_t pos);

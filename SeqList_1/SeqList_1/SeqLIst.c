@@ -31,8 +31,9 @@ void PrintSeqList(const SL* ps)
 	int i = 0;
 	for (i = 0; i < ps->size; i++)
 	{
-		printf("%d\n", ps->data[i]);
+		printf("%d ", ps->data[i]);
 	}
+	printf("\n");
 }
 
 void DestroySeqList(SL* ps)
@@ -44,7 +45,7 @@ void DestroySeqList(SL* ps)
 	ps->capacity = 0;
 }
 
-void PushBack(SL* ps, SLDataType x)
+void SLPushBack(SL* ps, SLDataType x)
 {
 	assert(ps);
 	CheckCapacity(ps);
@@ -52,13 +53,14 @@ void PushBack(SL* ps, SLDataType x)
 	ps->size++;
 }
 
-void PopBack(SL* ps)
+void SLPopBack(SL* ps)
 {
 	assert(ps);
+	assert(ps->size > 0);
 	ps->size--;
 }
 
-void PushFront(SL* ps, SLDataType x)
+void SLPushFront(SL* ps, SLDataType x)
 {
 	assert(ps);
 	CheckCapacity(ps);
@@ -70,4 +72,59 @@ void PushFront(SL* ps, SLDataType x)
 	}
 	ps->data[0] = x;
 	ps->size++;
+}
+
+void SLPopFront(SL* ps)
+{
+	assert(ps);
+	assert(ps->size > 0);
+	int begin = 1;
+	while (begin < ps->size)
+	{
+		ps->data[begin - 1] = ps->data[begin];
+		begin++;
+	}
+	ps->size--;
+}
+
+int SLFind(const SL* ps, SLDataType x)
+{
+	assert(ps);
+	int i = 0;
+	for (i = 0; i < ps->size; i++)
+	{
+		if (ps->data[i] == x)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void SLInsert(SL* ps, size_t pos, SLDataType x)
+{
+	assert(ps);
+	assert(pos <= ps->size);
+	CheckCapacity(ps);
+	size_t end = ps->size;
+	while (end > pos)
+	{
+		ps->data[end] = ps->data[end - 1];
+		end--;
+	}
+	ps->data[pos] = x;
+	ps->size++;
+}
+
+void SLErase(SL* ps, size_t pos)
+{
+	assert(ps);
+	assert(pos < ps->size);
+	size_t begin = pos + 1;
+	while (begin < ps->size)
+	{
+		ps->data[begin - 1] = ps->data[begin];
+		begin++;
+	}
+	ps->size--;
 }
