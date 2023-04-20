@@ -128,7 +128,7 @@ public:
 					assert(false);
 				}
 
-				break;
+				break;  // 旋转完后的子树与插入结点前的子树高度一样，不会继续影响上层的平衡因子，旋转完直接break，不必再做判断
 			}
 			else
 			{
