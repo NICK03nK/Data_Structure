@@ -39,11 +39,11 @@ public:
 
 	bool Insert(const pair<K, V>& kv)
 	{
-		// µ±Ç°ºìºÚÊ÷Îª¿ÕÊ÷£¬newÒ»¸ö½áµã×÷Îª¸ù½áµã
+		// å½“å‰çº¢é»‘æ ‘ä¸ºç©ºæ ‘ï¼Œnewä¸€ä¸ªç»“ç‚¹ä½œä¸ºæ ¹ç»“ç‚¹
 		if (_root == nullptr)
 		{
 			_root = new Node(kv);
-			_root->_col = BLACK;  // ºìºÚÊ÷µÄĞÔÖÊ¹æ¶¨£¬¸ù½áµã±ØĞëÎªºÚÉ«
+			_root->_col = BLACK;  // çº¢é»‘æ ‘çš„æ€§è´¨è§„å®šï¼Œæ ¹ç»“ç‚¹å¿…é¡»ä¸ºé»‘è‰²
 
 			return true;
 		}
@@ -62,13 +62,13 @@ public:
 				parent = cur;
 				cur = cur->_right;
 			}
-			else  // ºìºÚÊ÷ÖĞ´¿ÔÚÏàÍ¬KeyµÄ½áµã£¬²åÈëÊ§°Ü£¬·µ»Øfalse
+			else  // çº¢é»‘æ ‘ä¸­çº¯åœ¨ç›¸åŒKeyçš„ç»“ç‚¹ï¼Œæ’å…¥å¤±è´¥ï¼Œè¿”å›false
 			{
 				return false;
 			}
 		}
 
-		// newÒ»¸ö½áµã²¢²åÈëµ½curµ±Ç°ËùÔÚÎ»ÖÃ
+		// newä¸€ä¸ªç»“ç‚¹å¹¶æ’å…¥åˆ°curå½“å‰æ‰€åœ¨ä½ç½®
 		cur = new Node(kv);
 
 		if (kv.first < parent->_kv.first)
@@ -82,17 +82,17 @@ public:
 			cur->_parent = parent;
 		}
 
-		// ¼ì²é²¢µ÷Õû½áµãµÄÑÕÉ«
-		while (parent && parent->_col == RED)  // ¸¸½áµã´æÔÚÇÒ¸¸½áµãÎªºìÉ«²Å¿ÉÄÜÒª¼ÌĞøµ÷Õû½áµãµÄÑÕÉ«
+		// æ£€æŸ¥å¹¶è°ƒæ•´ç»“ç‚¹çš„é¢œè‰²
+		while (parent && parent->_col == RED)  // çˆ¶ç»“ç‚¹å­˜åœ¨ä¸”çˆ¶ç»“ç‚¹ä¸ºçº¢è‰²æ‰å¯èƒ½è¦ç»§ç»­è°ƒæ•´ç»“ç‚¹çš„é¢œè‰²
 		{
 			Node* grandParent = parent->_parent;
 
-			// 1.parentÔÚgrandParentµÄ×ó±ß
+			// 1.parentåœ¨grandParentçš„å·¦è¾¹
 			if (parent == grandParent->_left)
 			{
 				Node* uncle = grandParent->_right;
 
-				// Çé¿öÒ»£ºcurÎªºìÉ«£¬parentÎªºìÉ«£¬grandParentÎªºÚÉ«£¬uncle´æÔÚÇÒÎªºìÉ«
+				// æƒ…å†µä¸€ï¼šcurä¸ºçº¢è‰²ï¼Œparentä¸ºçº¢è‰²ï¼ŒgrandParentä¸ºé»‘è‰²ï¼Œuncleå­˜åœ¨ä¸”ä¸ºçº¢è‰²
 				if (uncle && uncle->_col == RED)
 				{
 					parent->_col = uncle->_col = BLACK;
@@ -101,10 +101,10 @@ public:
 					cur = grandParent;
 					parent = cur->_parent;
 				}
-				// Çé¿ö¶şºÍÇé¿öÈı£ºcurÎªºìÉ«£¬parentÎªºìÉ«£¬grandParentÎªºÚÉ«£¬uncle²»´æÔÚ»òuncle´æÔÚÇÒÎªºÚÉ«
+				// æƒ…å†µäºŒå’Œæƒ…å†µä¸‰ï¼šcurä¸ºçº¢è‰²ï¼Œparentä¸ºçº¢è‰²ï¼ŒgrandParentä¸ºé»‘è‰²ï¼Œuncleä¸å­˜åœ¨æˆ–uncleå­˜åœ¨ä¸”ä¸ºé»‘è‰²
 				else
 				{
-					// Çé¿ö¶ş£º(cur£¬parent£¬grandParentÔÚÖ±ÏßÉÏ)
+					// æƒ…å†µäºŒï¼š(curï¼Œparentï¼ŒgrandParentåœ¨ç›´çº¿ä¸Š)
 					if (cur == parent->_left)
 					{
 						RotateR(grandParent);
@@ -112,7 +112,7 @@ public:
 						grandParent->_col = RED;
 						parent->_col = BLACK;
 					}
-					// Çé¿öÈı£º(cur£¬parent£¬grandParentÔÚÕÛÏßÉÏ)
+					// æƒ…å†µä¸‰ï¼š(curï¼Œparentï¼ŒgrandParentåœ¨æŠ˜çº¿ä¸Š)
 					else
 					{
 						RotateL(parent);
@@ -122,12 +122,12 @@ public:
 						cur->_col = BLACK;
 					}
 
-					// ÒòÎªÇé¿ö¶şºÍÇé¿öÈı´¦ÀíÍêºó£¬¶¥ÉÏ¡°×îÖÕµÄgrandParent¡±¶¼»á¸ÄÎªºÚÉ«£¬
-					// ¼´²»»áÓëÆäÉÏÃæµÄparentĞÎ³ÉÁ¬ĞøÁ½¸öºìÉ«µÄÇé¿ö£¬ËùÒÔ´¦ÀíÍêºóbreak¼´¿É
+					// å› ä¸ºæƒ…å†µäºŒå’Œæƒ…å†µä¸‰å¤„ç†å®Œåï¼Œé¡¶ä¸Šâ€œæœ€ç»ˆçš„grandParentâ€éƒ½ä¼šæ”¹ä¸ºé»‘è‰²ï¼Œ
+					// å³ä¸ä¼šä¸å…¶ä¸Šé¢çš„parentå½¢æˆè¿ç»­ä¸¤ä¸ªçº¢è‰²çš„æƒ…å†µï¼Œæ‰€ä»¥å¤„ç†å®Œåbreakå³å¯
 					break;
 				}
 			}
-			// 2.parentÔÚgrandParentµÄÓÒ±ß
+			// 2.parentåœ¨grandParentçš„å³è¾¹
 			else
 			{
 				Node* uncle = grandParent->_left;
@@ -142,7 +142,7 @@ public:
 				}
 				else
 				{
-					if (cur = parent->_right)
+					if (cur == parent->_right)
 					{
 						RotateL(grandParent);
 
@@ -170,7 +170,7 @@ public:
 
 	Node* Find(const pair<K, V>& kv)
 	{
-		// µ±Ç°ºìºÚÊ÷Îª¿Õ£¬ÔòÖ±½Ó·µ»Øfalse
+		// å½“å‰çº¢é»‘æ ‘ä¸ºç©ºï¼Œåˆ™ç›´æ¥è¿”å›false
 		if (_root == nullptr)
 		{
 			return nullptr;
@@ -187,14 +187,14 @@ public:
 			{
 				cur = cur->_right;
 			}
-			// ÕÒµ½ÁË
+			// æ‰¾åˆ°äº†
 			else
 			{
 				return cur;
 			}
 		}
 
-		// cur×ßµ½¿Õ¶¼Ã»ÕÒµ½¶ÔÓ¦µÄÖµ£¬ËµÃ÷¸ÃºìºÚÊ÷ÖĞ²»´æÔÚ¸ÃÖµ£¬·µ»Ønullptr
+		// curèµ°åˆ°ç©ºéƒ½æ²¡æ‰¾åˆ°å¯¹åº”çš„å€¼ï¼Œè¯´æ˜è¯¥çº¢é»‘æ ‘ä¸­ä¸å­˜åœ¨è¯¥å€¼ï¼Œè¿”å›nullptr
 		return nullptr;
 	}
 
@@ -237,20 +237,20 @@ public:
 
 	bool IsValidRBTRee()
 	{
-		// ¿ÕÊ÷Ò²ËãÊÇºìºÚÊ÷
+		// ç©ºæ ‘ä¹Ÿç®—æ˜¯çº¢é»‘æ ‘
 		if (_root == nullptr)
 		{
 			return true;
 		}
 
-		// ºìºÚÊ÷µÄ¸ù½áµãÒ»¶¨ÒªÊÇºÚÉ«£¬Èô¸ù½áµã²»ÎªºÚÉ«£¬Ôò·µ»Øfalse
+		// çº¢é»‘æ ‘çš„æ ¹ç»“ç‚¹ä¸€å®šè¦æ˜¯é»‘è‰²ï¼Œè‹¥æ ¹ç»“ç‚¹ä¸ä¸ºé»‘è‰²ï¼Œåˆ™è¿”å›false
 		if (_root->_col != BLACK)
 		{
 			return false;
 		}
 
-		// ºìºÚÊ÷µÄËùÓĞÂ·¾¶µÄºÚÉ«½áµãµÄ¸öÊıÏàÍ¬
-		// ½«×î×óÂ·¾¶ÖĞºÚÉ«½áµãµÄ¸öÊı¼ÇÂ¼ÏÂÀ´£¬×÷Îª²Î¿¼Öµ£¬ÓëÆäËûµÄÂ·¾¶½øĞĞ±È¶Ô
+		// çº¢é»‘æ ‘çš„æ‰€æœ‰è·¯å¾„çš„é»‘è‰²ç»“ç‚¹çš„ä¸ªæ•°ç›¸åŒ
+		// å°†æœ€å·¦è·¯å¾„ä¸­é»‘è‰²ç»“ç‚¹çš„ä¸ªæ•°è®°å½•ä¸‹æ¥ï¼Œä½œä¸ºå‚è€ƒå€¼ï¼Œä¸å…¶ä»–çš„è·¯å¾„è¿›è¡Œæ¯”å¯¹
 		int ref = 0;
 		Node* left = _root;
 		while (left)
@@ -349,10 +349,10 @@ private:
 
 	bool _IsValidRBTRee(Node* root, int blackCount, const int ref)
 	{
-		// µİ¹é×ßµ½¿Õ½áµã£¬¸ÃÌõÂ·¾¶½áÊø£¬½«¸ÃÌõÂ·¾¶ÉÏµÄºÚÉ«½áµãÊ÷Óë²Î¿¼Öµ×ö±È¶Ô£¬Óë²Î¿¼Öµ²»ÏàµÈÔò·µ»Øfalse
+		// é€’å½’èµ°åˆ°ç©ºç»“ç‚¹ï¼Œè¯¥æ¡è·¯å¾„ç»“æŸï¼Œå°†è¯¥æ¡è·¯å¾„ä¸Šçš„é»‘è‰²ç»“ç‚¹æ ‘ä¸å‚è€ƒå€¼åšæ¯”å¯¹ï¼Œä¸å‚è€ƒå€¼ä¸ç›¸ç­‰åˆ™è¿”å›false
 		if (root == nullptr)
 		{
-			// Î¥·´ºìºÚÊ÷ĞÔÖÊ4
+			// è¿åçº¢é»‘æ ‘æ€§è´¨4
 			if (blackCount != ref)
 			{
 				return false;
@@ -361,9 +361,9 @@ private:
 			return true;
 		}
 
-		// Èç¹ûµ±Ç°½áµãÎªºìÉ«ÇÒ¸¸½áµãÎªºìÉ«£¬Ôò·µ»Øfalse
-		// Î¥·´ºìºÚÊ÷ĞÔÖÊ3
-		if (root->_col == RED && root->_parent->_col == RED)  // root->_col == RED ¾ÍÈ·±£ÁËroot²»¿ÉÄÜÎª¸ù½áµã£¬ÒòÎª¸ù½áµãÒ»¶¨ÎªºÚÉ«
+		// å¦‚æœå½“å‰ç»“ç‚¹ä¸ºçº¢è‰²ä¸”çˆ¶ç»“ç‚¹ä¸ºçº¢è‰²ï¼Œåˆ™è¿”å›false
+		// è¿åçº¢é»‘æ ‘æ€§è´¨3
+		if (root->_col == RED && root->_parent->_col == RED)  // root->_col == RED å°±ç¡®ä¿äº†rootä¸å¯èƒ½ä¸ºæ ¹ç»“ç‚¹ï¼Œå› ä¸ºæ ¹ç»“ç‚¹ä¸€å®šä¸ºé»‘è‰²
 		{
 			return false;
 		}
